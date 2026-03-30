@@ -56,8 +56,10 @@ What is it Made Up Of?
 * Server software, which stores values with their keys into an internal hash table.
 * LRU, which determine when to throw out old data (if out of memory), or reuse memory.
 
-Design Philosophy 
---
+----
+
+# Design Philosophy 
+
 * Simple Key/Value Store 
 	* server does not care what your data looks like. 
 	* Items are made up of a key, an expiration time, optional flags, and raw data. 
@@ -81,27 +83,26 @@ Design Philosophy
 
 O(1) 
 --
-	* All commands are implemented to be as fast and lock-friendly as possible. 
-		* allows near-deterministic query speeds for all use cases.
+* All commands are implemented to be as fast and lock-friendly as possible. 
+	* allows near-deterministic query speeds for all use cases.
 
-	* Queries on slow machines should run in well under 1ms. 
-		* High end servers can serve millions of keys per second in throughput.
+* Queries on slow machines should run in well under 1ms. 
+	* High end servers can serve millions of keys per second in throughput.
 
-	* Forgetting is a Feature 
-		* Memcached is, by default, a ***Least Recently Used*** cache. 
-		* Items expire after a specified amount of time. 
-		* Both of these are elegant solutions to many problems; 
-			* Expire items after a minute to limit stale data being returned, or 
-			* flush unused data in an effort to retain frequently requested information.
+* Forgetting is a Feature 
+	* Memcached is, by default, a ***Least Recently Used*** cache. 
+	* Items expire after a specified amount of time. 
+	* Both of these are elegant solutions to many problems; 
+		* Expire items after a minute to limit stale data being returned, or 
+		* flush unused data in an effort to retain frequently requested information.
 
-	* No “pauses” waiting for a garbage collector 
-		* ensures low latency, and 
-		* free space is lazily reclaimed.
+* No “pauses” waiting for a garbage collector 
+	* ensures low latency, and 
+	* free space is lazily reclaimed.
 
-	* Cache Invalidation 
-		* Rather than broadcasting changes to all available hosts, 
-			* clients directly address the server holding the data to be invalidated.
-
+* Cache Invalidation 
+	* Rather than broadcasting changes to all available hosts, 
+		* clients directly address the server holding the data to be invalidated.
 
 
 ----
@@ -125,7 +126,7 @@ O(1)
 	* "***distributed***" part happens at the client level. 
 	* client knows which server holds which key using a hashing algorithm (like ***Consistent Hashing***).
 
-3. Relevance Today
+* Relevance Today
 --
 * Redis has taken much of the market share, 
 * Memcached remains highly relevant for:
